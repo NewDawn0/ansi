@@ -3,7 +3,10 @@
 
   inputs.utils.url = "github:NewDawn0/nixUtils";
 
-  outputs = { utils, ... }: {
+  outputs = { self, utils, ... }: {
+    overlays.default = final: prev: {
+      ansi = self.packages.${prev.system}.default;
+    };
     packages = utils.lib.eachSystem { } (pkgs: {
       default = pkgs.stdenv.mkDerivation {
         pname = "ansi";
@@ -21,9 +24,9 @@
         '';
         installPhase = "install -D zig-out/bin/ansi -t $out/bin";
         meta = {
-          description = "A quick reference guide for ANSI escape codes";
+          description = "Quick reference guide for ANSI escape codes";
           longDescription = ''
-            A handy cheatsheet for quickly looking up ANSI escape codes.
+            Handy cheatsheet for quickly looking up ANSI escape codes.
             Perfect for developers working with terminal color codes and text formatting.
           '';
           homepage = "https://github.com/NewDawn0/ansi";
