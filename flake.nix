@@ -15,9 +15,9 @@
         buildInputs = with pkgs; [ zig ];
         buildPhase = ''
           ${pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-            # On Darwin the executable needs to link to libSystem found in /usr/lib/
-            export LIBRARY_PATH=/usr/lib
-            export DYLD_LIBRARY_PATH=/usr/lib
+            # On Darwin the executable needs to link to libSystem
+            export LIBRARY_PATH="$(xcrun --show-sdk-path)/usr/lib"
+            export DYLD_LIBRARY_PATH="$(xcrun --show-sdk-path)/usr/lib"
           ''}
           cacheDir=$(mktemp -d)
           zig build --global-cache-dir $cacheDir
