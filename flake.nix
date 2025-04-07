@@ -14,7 +14,7 @@
         src = ./.;
         buildInputs = with pkgs; [ zig ];
         buildPhase = ''
-          ${pkgs.lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+          ${pkgs.lib.optionalString pkgs.stdenv.isDarwin ''
             # On Darwin the executable needs to link to libSystem
             export LIBRARY_PATH="$(xcrun --show-sdk-path)/usr/lib"
             export DYLD_LIBRARY_PATH="$(xcrun --show-sdk-path)/usr/lib"
